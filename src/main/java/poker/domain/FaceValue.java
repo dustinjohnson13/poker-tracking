@@ -1,6 +1,6 @@
-package poker.domain
+package poker.domain;
 
-enum class FaceValue {
+public enum FaceValue {
     ONE,
     TWO,
     THREE,

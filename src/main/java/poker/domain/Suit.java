@@ -1,6 +1,6 @@
-package poker.domain
+package poker.domain;
 
-enum class Suit {
+public enum Suit {
     CLUBS,
     DIAMONDS,
     HEARTS,

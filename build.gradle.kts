@@ -14,8 +14,8 @@ val slf4jVersion = "1.7.25"
 val spockVersion = "1.1-groovy-2.4-rc-3"
 
 dependencies {
+    api("com.google.guava:guava:23.0")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
-    implementation(kotlin("stdlib-jdk8"))
 
     testImplementation("org.codehaus.groovy:groovy-all:$groovyVersion")
     testImplementation("org.spockframework:spock-core:$spockVersion") {
