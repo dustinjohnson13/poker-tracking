@@ -1,7 +1,5 @@
 package poker.ignition;
 
-import poker.util.CurrencyUtil;
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;

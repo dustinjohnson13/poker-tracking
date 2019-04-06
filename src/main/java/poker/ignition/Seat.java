@@ -20,6 +20,26 @@ public class Seat {
         this.stackChange = stackChange;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public boolean isMe() {
+        return me;
+    }
+
+    public long getStack() {
+        return stack;
+    }
+
+    public long getStackChange() {
+        return stackChange;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

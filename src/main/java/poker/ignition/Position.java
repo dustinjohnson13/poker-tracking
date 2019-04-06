@@ -1,7 +1,5 @@
 package poker.ignition;
 
-import javafx.geometry.Pos;
-
 import java.util.Optional;
 
 public enum Position {
