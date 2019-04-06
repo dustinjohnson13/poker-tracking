@@ -11,10 +11,11 @@ import static poker.ignition.Position.UTG
 import static poker.ignition.Position.UTG_1
 import static poker.ignition.Position.UTG_2
 import static poker.ignition.SessionType.RING
+import static poker.ignition.SessionType.ZONE
 
 class SessionParserSpec extends Specification {
 
-    def 'should parse a session file correctly'() {
+    def 'should parse a ring game session file correctly'() {
 
         def expectedHands = [
                 new Hand(2577017255L, [
@@ -198,5 +199,50 @@ class SessionParserSpec extends Specification {
         expect:
         actual == new Session('HH20190322-143439', ldt(2019, MARCH, 22, 14, 34, 39), RING, 2L, 5L,
                 11131131L, 500L, 271L, expectedHands)
+    }
+
+    def 'should parse a zone game session file correctly'() {
+
+        def expectedHands = [
+                new Hand(5234324480L, [
+                        new Seat(1, BIG_BLIND, true, 500L, -5L),
+                        new Seat(2, UTG, false, 448L, 0L),
+                        new Seat(3, UTG_1, false, 487L, 0L),
+                        new Seat(4, UTG_2, false, 555L, 0L),
+                        new Seat(5, DEALER, false, 1080L, 0L),
+                        new Seat(6, SMALL_BLIND, false, 204L, -2L)
+                ]),
+                new Hand(5234324606L, [
+                        new Seat(1, SMALL_BLIND, false, 380L, -65L),
+                        new Seat(2, BIG_BLIND, false, 474L, -5L),
+                        new Seat(3, UTG, false, 297L, -65L),
+                        new Seat(4, UTG_1, true, 502L, 0L),
+                        new Seat(5, UTG_2, false, 389L, 0L),
+                        new Seat(6, DEALER, false, 500L, -380L)
+                ]),
+                new Hand(5234324715L, [
+                        new Seat(1, UTG, false, 710L, 0L),
+                        new Seat(2, UTG_1, true, 502L, 0L),
+                        new Seat(3, UTG_2, false, 611L, -182L),
+                        new Seat(4, DEALER, false, 1127L, -182L),
+                        new Seat(5, SMALL_BLIND, false, 2453L, -2L),
+                        new Seat(6, BIG_BLIND, false, 871L, -5L)
+                ]),
+                new Hand(5234324773L, [
+                        new Seat(1, UTG_2, false, 397L, 0L),
+                        new Seat(2, DEALER, true, 502L, 0L),
+                        new Seat(3, SMALL_BLIND, false, 374L, -2L),
+                        new Seat(4, BIG_BLIND, false, 927L, -5L),
+                        new Seat(5, UTG, false, 592L, 0L),
+                        new Seat(6, UTG_1, false, 109L, -5L)
+                ])
+        ]
+
+        def filename = 'HH20190326-200544 - 7713864 - ZONE - $0.02-$0.05 - HOLDEMZonePoker - NL - ZonePoker No.3156.txt'
+        def actual = new SessionParser().parse(filename, SessionParserSpec.getResourceAsStream(filename).text)
+
+        expect:
+        actual == new Session('HH20190326-200544', ldt(2019, MARCH, 26, 20, 5, 44), ZONE, 2L, 5L,
+                3156L, 500L, 2L, expectedHands)
     }
 }

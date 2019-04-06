@@ -31,7 +31,8 @@ public class SessionParser {
         long smallBlind = penniesFromDollarsCentsString(blinds[0]);
         long bigBlind = penniesFromDollarsCentsString(blinds[1]);
 
-        long tableNumber = Long.parseLong(parts[13].substring(3, 11), 10);
+        String number = parts[13].substring(3).replaceAll("\\.txt", "");
+        long tableNumber = Long.parseLong(number, 10);
         long stack = 0L;
         long stackChange = 0L;
 
