@@ -25,6 +25,7 @@ public class HandParser {
     private static final Pattern POST_BIG_BLIND_PATTERN = Pattern.compile("Big Blind.*?:.*?Big blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POST_CHIP_PATTERN = Pattern.compile(".*? : Posts chip (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern BLIND_LEVEL_PATTERN = Pattern.compile(".*? Level \\d+ \\((\\d+)/(\\d+)\\).*", CASE_INSENSITIVE);
+    private static final Pattern TABLE_DEPOSIT_PATTERN = Pattern.compile(".*? : Table deposit (\\$(.*?)\\s)", CASE_INSENSITIVE);
 
     public Hand parse(String hand, Function<String, Blinds> determineBlinds) {
         Matcher idMatcher = ID_PATTERN.matcher(hand);
@@ -65,6 +66,7 @@ public class HandParser {
         processAdjustments(map, hand, CALLS_PATTERN, 2, true);
         processAdjustments(map, hand, RETURNS_UNCALLED_PORTION_OF_BET_PATTERN, 2, false);
         processAdjustments(map, hand, POT_DISTRIBUTION_PATTERN, 2, false);
+        processAdjustments(map, hand, TABLE_DEPOSIT_PATTERN, 2, true);
 
         return map;
     }

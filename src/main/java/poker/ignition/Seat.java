@@ -10,6 +10,7 @@ public class Seat {
     private final Position position;
     private final boolean me;
     private long stack;
+    // TODO: This is also being used for table deposits... should separate the change in stack from bankroll changes
     private long stackChange;
 
     public Seat(int number, Position position, boolean me, long stack, long stackChange) {

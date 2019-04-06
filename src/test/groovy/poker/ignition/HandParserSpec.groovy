@@ -126,4 +126,73 @@ Seat+9: Dealer Folded on the TURN'''
         actual == expected
     }
 
+    def 'should be able to parse a hand with a table deposit'() {
+        def hand = '''Ignition Hand #3752288142 TBL#27364369 HOLDEM No Limit - 2018-03-22 19:49:40
+Seat 1: UTG ($5.03 in chips)
+Seat 2: UTG+1 [ME] ($1.31 in chips)
+Seat 3: UTG+2 ($3.21 in chips)
+Seat 4: UTG+3 ($2.45 in chips)
+Seat 6: Dealer ($5.11 in chips)
+Seat 8: Small Blind ($4.91 in chips)
+Seat 9: Big Blind ($6.61 in chips)
+Dealer : Set dealer [6] 
+Small Blind : Small Blind $0.02 
+Big Blind : Big blind $0.05 
+*** HOLE CARDS ***
+UTG : Card dealt to a spot [3s 4h] 
+UTG+1  [ME] : Card dealt to a spot [Th 7d] 
+UTG+2 : Card dealt to a spot [Ad 2c] 
+UTG+3 : Card dealt to a spot [Ac 3h] 
+Dealer : Card dealt to a spot [6d Kh] 
+Small Blind : Card dealt to a spot [2d 6s] 
+Big Blind : Card dealt to a spot [9c 2s] 
+UTG : Folds
+UTG+1  [ME] : Folds
+UTG+2 : Calls $0.05 
+UTG+3 : Calls $0.05 
+Dealer : Folds
+Small Blind : Calls $0.03 
+Seat re-join
+Big Blind : Checks
+*** FLOP *** [Jc Qd Kd]
+Small Blind : Checks
+UTG+1  [ME] : Table deposit $3.69 
+Big Blind : Checks
+UTG+2 : Bets $0.10 
+UTG+3 : Calls $0.10 
+Small Blind : Folds
+Big Blind : Folds
+*** TURN *** [Jc Qd Kd] [2h]
+UTG+2 : Bets $0.13 
+UTG+3 : Calls $0.13 
+*** RIVER *** [Jc Qd Kd 2h] [9h]
+UTG+2 : Checks
+UTG+3 : Bets $0.76 
+UTG+2 : Folds
+UTG+3 : Return uncalled portion of bet $0.76 
+UTG+3 : Does not show [Ac 3h] (High Card)
+UTG+3 : Hand result $0.63 
+UTG : Seat sit out
+*** SUMMARY ***
+Total Pot($0.66)
+Board [Jc Qd Kd 2h 9h]
+Seat+1: UTG Folded before the FLOP
+Seat+2: UTG+1 Folded before the FLOP
+Seat+3: UTG+2 Folded on the RIVER
+Seat+4: UTG+3 $0.63 [Does not show]  
+Seat+6: Dealer Folded before the FLOP
+Seat+8: Small Blind Folded on the FLOP
+Seat+9: Big Blind Folded on the FLOP'''
+
+        def expectedSeats = [new Seat(1, Position.UTG, false, 503L, 0L), new Seat(2, Position.UTG_1, true, 131L, -369L),
+                             new Seat(3, Position.UTG_2, false, 321, -28L), new Seat(4, Position.UTG_3, false, 245L, 35L),
+                             new Seat(6, Position.DEALER, false, 511L, 0L), new Seat(8, Position.SMALL_BLIND, false, 491L, -5L),
+                             new Seat(9, Position.BIG_BLIND, false, 661L, -5L)]
+        def expected = new Hand(3752288142L, new Blinds(2L, 5L), expectedSeats)
+        def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
+
+        expect:
+        actual == expected
+    }
+
 }

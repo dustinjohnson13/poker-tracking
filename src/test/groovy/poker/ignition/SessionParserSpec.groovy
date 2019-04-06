@@ -184,7 +184,7 @@ class SessionParserSpec extends Specification {
                         new Seat(1, SMALL_BLIND, false, 485L, -2L),
                         new Seat(2, BIG_BLIND, false, 625L, -15L),
                         new Seat(3, UTG, false, 138L, -15L),
-                        new Seat(4, UTG_1, false, 375L, -15L),
+                        new Seat(4, UTG_1, false, 375L, -155L),
                         new Seat(5, UTG_2, true, 897L, -109L),
                         new Seat(6, DEALER, false, 1038L, 143L)]
                 ),
