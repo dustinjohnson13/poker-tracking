@@ -33,8 +33,8 @@ public class SessionParser {
         LocalDateTime startTime = LocalDateTime.parse(parts[0], SESSION_START_FORMATTER);
         SessionType type = SessionType.valueOf(parts[4]);
 
-        long stack = 0L;
-        long stackChange = 0L;
+        long cashIn = 0L;
+        long cashOut = 0L;
         List<Hand> hands;
         if (type == STT) {
             hands = parseHands(fileContents, HandParser::blindsFromHandTitle);
@@ -46,12 +46,12 @@ public class SessionParser {
 
             long tournamentBuyIn = penniesFromDollarsCentsString(m.group(1));
             long tournamentFee = penniesFromDollarsCentsString(m.group(2));
-            stack = tournamentBuyIn + tournamentFee;
-            stackChange = -stack;
+            cashIn = tournamentBuyIn + tournamentFee;
+            cashOut = -cashIn;
 
             m = TOURNAMENT_PRIZE_CASH_PATTERN.matcher(fileContents);
             if (m.find()) {
-                stackChange += penniesFromDollarsCentsString(m.group(1));
+                cashOut = penniesFromDollarsCentsString(m.group(1));
             }
         } else {
             String[] blindsString = parts[6].split("-");
@@ -64,18 +64,18 @@ public class SessionParser {
             if (!hands.isEmpty()) {
                 Hand firstHand = hands.iterator().next();
                 Seat mySeat = firstHand.getMySeat();
-                stack = mySeat.getStack();
+                cashIn = mySeat.getStack();
 
                 Hand lastHand = getLast(hands);
                 Seat alsoMySeat = lastHand.getMySeat();
-                stackChange = alsoMySeat.getStack() - stack + alsoMySeat.getStackChange();
+                cashOut = alsoMySeat.getStack() + alsoMySeat.getStackChange();
             }
         }
 
         String number = parts[type == STT ? 14 : 13].substring(3).replaceAll("\\.txt", "");
         long tableNumber = Long.parseLong(number, 10);
 
-        return new Session(id, startTime, type, stack, stackChange, tableNumber, hands);
+        return new Session(id, startTime, type, cashIn, cashOut, tableNumber, hands);
     }
 
     private List<Hand> parseHands(String fileContents, Function<String, Blinds> determineBlinds) {

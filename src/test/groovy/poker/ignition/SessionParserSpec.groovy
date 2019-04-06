@@ -203,7 +203,7 @@ class SessionParserSpec extends Specification {
 
         expect:
         actual == new Session('HH20190322-143439', ldt(2019, MARCH, 22, 14, 34, 39), RING,
-                500L, 271L, 11131131L, expectedHands)
+                500L, 771L, 11131131L, expectedHands)
     }
 
     def 'should parse a zone game session file correctly'() {
@@ -248,7 +248,7 @@ class SessionParserSpec extends Specification {
 
         expect:
         actual == new Session('HH20190326-200544', ldt(2019, MARCH, 26, 20, 5, 44), ZONE,
-                500L, 2L, 3156L, expectedHands)
+                500L, 502L, 3156L, expectedHands)
     }
 
     def 'should parse a tournament session file correctly'() {
@@ -298,7 +298,7 @@ class SessionParserSpec extends Specification {
 
         expect:
         actual == new Session('HH20171016-190220', ldt(2017, OCTOBER, 16, 19, 2, 20), STT,
-                110L, 70L, 37262539L, expectedHands)
+                110L, 180L, 37262539L, expectedHands)
     }
 
 }

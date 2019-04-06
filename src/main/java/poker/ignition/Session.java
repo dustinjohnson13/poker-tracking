@@ -11,19 +11,19 @@ public class Session {
     private final LocalDateTime startTime;
     private final SessionType type;
     private final long tableNumber;
-    private final long stack;
-    private final long stackChange;
+    private final long cashIn;
+    private final long cashOut;
     private final List<Hand> hands;
 
     public Session(String id, LocalDateTime startTime, SessionType type,
-                   long stack, long stackChange,
+                   long cashIn, long cashOut,
                    long tableNumber, List<Hand> hands) {
         this.id = id;
         this.startTime = startTime;
         this.type = type;
         this.tableNumber = tableNumber;
-        this.stack = stack;
-        this.stackChange = stackChange;
+        this.cashIn = cashIn;
+        this.cashOut = cashOut;
         this.hands = hands;
     }
 
@@ -43,12 +43,12 @@ public class Session {
         return tableNumber;
     }
 
-    public long getStack() {
-        return stack;
+    public long getCashIn() {
+        return cashIn;
     }
 
-    public long getStackChange() {
-        return stackChange;
+    public long getCashOut() {
+        return cashOut;
     }
 
     public List<Hand> getHands() {
@@ -61,8 +61,8 @@ public class Session {
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
         return tableNumber == session.tableNumber &&
-                stack == session.stack &&
-                stackChange == session.stackChange &&
+                cashIn == session.cashIn &&
+                cashOut == session.cashOut &&
                 Objects.equals(id, session.id) &&
                 Objects.equals(startTime, session.startTime) &&
                 type == session.type &&
@@ -71,7 +71,7 @@ public class Session {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startTime, type, tableNumber, stack, stackChange, hands);
+        return Objects.hash(id, startTime, type, tableNumber, cashIn, cashOut, hands);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class Session {
                 .add("startTime", startTime)
                 .add("type", type)
                 .add("tableNumber", tableNumber)
-                .add("stack", stack)
-                .add("stackChange", stackChange)
+                .add("cashIn", cashIn)
+                .add("cashOut", cashOut)
                 .add("hands", hands)
                 .toString();
     }
