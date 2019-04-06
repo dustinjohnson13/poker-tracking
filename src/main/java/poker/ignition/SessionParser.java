@@ -68,7 +68,7 @@ public class SessionParser {
 
                 Hand lastHand = getLast(hands);
                 Seat alsoMySeat = lastHand.getMySeat();
-                cashOut = alsoMySeat.getStack() + alsoMySeat.getStackChange();
+                cashOut = alsoMySeat.getStack() + alsoMySeat.getProfitLoss();
             }
         }
 

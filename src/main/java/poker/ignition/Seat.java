@@ -10,15 +10,16 @@ public class Seat {
     private final Position position;
     private final boolean me;
     private long stack;
-    // TODO: This is also being used for table deposits... should separate the change in stack from bankroll changes
-    private long stackChange;
+    private final long profitLoss;
+    private final long cashDeposit;
 
-    public Seat(int number, Position position, boolean me, long stack, long stackChange) {
+    public Seat(int number, Position position, boolean me, long stack, long profitLoss, long cashDeposit) {
         this.number = number;
         this.position = position;
         this.me = me;
         this.stack = stack;
-        this.stackChange = stackChange;
+        this.profitLoss = profitLoss;
+        this.cashDeposit = cashDeposit;
     }
 
     public int getNumber() {
@@ -37,8 +38,12 @@ public class Seat {
         return stack;
     }
 
-    public long getStackChange() {
-        return stackChange;
+    public long getProfitLoss() {
+        return profitLoss;
+    }
+
+    public long getCashDeposit() {
+        return cashDeposit;
     }
 
     @Override
@@ -49,13 +54,14 @@ public class Seat {
         return number == seat.number &&
                 me == seat.me &&
                 stack == seat.stack &&
-                stackChange == seat.stackChange &&
+                profitLoss == seat.profitLoss &&
+                cashDeposit == seat.cashDeposit &&
                 position == seat.position;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, position, me, stack, stackChange);
+        return Objects.hash(number, position, me, stack, profitLoss, cashDeposit);
     }
 
     @Override
@@ -65,7 +71,8 @@ public class Seat {
                 .add("position", position)
                 .add("me", me)
                 .add("stack", stack)
-                .add("stackChange", stackChange)
+                .add("profitLoss", profitLoss)
+                .add("cashDeposit", cashDeposit)
                 .toString();
     }
 }

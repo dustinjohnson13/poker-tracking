@@ -52,9 +52,9 @@ Seat+4: Small Blind Folded before the FLOP
 Seat+5: Big Blind Folded before the FLOP
 Seat+6: UTG Folded before the FLOP'''
 
-        def expectedSeats = [new Seat(1, Position.UTG_1, false, 737L, 22L), new Seat(2, Position.UTG_2, false, 554L, 0L),
-                             new Seat(3, Position.DEALER, false, 532L, -17L), new Seat(4, Position.SMALL_BLIND, false, 478L, -2L),
-                             new Seat(5, Position.BIG_BLIND, true, 500L, -5L), new Seat(6, Position.UTG, false, 704L, 0L)]
+        def expectedSeats = [new Seat(1, Position.UTG_1, false, 737L, 22L, 0L), new Seat(2, Position.UTG_2, false, 554L, 0L, 0L),
+                             new Seat(3, Position.DEALER, false, 532L, -17L, 0L), new Seat(4, Position.SMALL_BLIND, false, 478L, -2L, 0L),
+                             new Seat(5, Position.BIG_BLIND, true, 500L, -5L, 0L), new Seat(6, Position.UTG, false, 704L, 0L, 0L)]
         def expected = new Hand(9876543210L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 
@@ -115,10 +115,10 @@ Seat+7: UTG+3 Folded before the FLOP
 Seat+8: UTG+4 Folded on the FLOP
 Seat+9: Dealer Folded on the TURN'''
 
-        def expectedSeats = [new Seat(1, Position.SMALL_BLIND, true, 495L, 51L), new Seat(2, Position.BIG_BLIND, false, 500L, -15L),
-                             new Seat(3, Position.UTG, false, 440L, 0L), new Seat(5, Position.UTG_1, false, 217L, 0L),
-                             new Seat(6, Position.UTG_2, false, 1139L, 0L), new Seat(7, Position.UTG_3, false, 468L, 0L),
-                             new Seat(8, Position.UTG_4, false, 143L, -15L), new Seat(9, Position.DEALER, false, 542L, -25L)]
+        def expectedSeats = [new Seat(1, Position.SMALL_BLIND, true, 495L, 51L, 0L), new Seat(2, Position.BIG_BLIND, false, 500L, -15L, 0L),
+                             new Seat(3, Position.UTG, false, 440L, 0L, 0L), new Seat(5, Position.UTG_1, false, 217L, 0L, 0L),
+                             new Seat(6, Position.UTG_2, false, 1139L, 0L, 0L), new Seat(7, Position.UTG_3, false, 468L, 0L, 0L),
+                             new Seat(8, Position.UTG_4, false, 143L, -15L, 0L), new Seat(9, Position.DEALER, false, 542L, -25L, 0L)]
         def expected = new Hand(6875559237L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 
@@ -184,10 +184,10 @@ Seat+6: Dealer Folded before the FLOP
 Seat+8: Small Blind Folded on the FLOP
 Seat+9: Big Blind Folded on the FLOP'''
 
-        def expectedSeats = [new Seat(1, Position.UTG, false, 503L, 0L), new Seat(2, Position.UTG_1, true, 131L, -369L),
-                             new Seat(3, Position.UTG_2, false, 321, -28L), new Seat(4, Position.UTG_3, false, 245L, 35L),
-                             new Seat(6, Position.DEALER, false, 511L, 0L), new Seat(8, Position.SMALL_BLIND, false, 491L, -5L),
-                             new Seat(9, Position.BIG_BLIND, false, 661L, -5L)]
+        def expectedSeats = [new Seat(1, Position.UTG, false, 503L, 0L, 0L), new Seat(2, Position.UTG_1, true, 131L, 0L, 369L),
+                             new Seat(3, Position.UTG_2, false, 321, -28L, 0L), new Seat(4, Position.UTG_3, false, 245L, 35L, 0L),
+                             new Seat(6, Position.DEALER, false, 511L, 0L, 0L), new Seat(8, Position.SMALL_BLIND, false, 491L, -5L, 0L),
+                             new Seat(9, Position.BIG_BLIND, false, 661L, -5L, 0L)]
         def expected = new Hand(3752288142L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 

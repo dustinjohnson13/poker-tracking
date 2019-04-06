@@ -34,7 +34,8 @@ public class HandParser {
         }
         long id = Long.parseLong(idMatcher.group(1));
 
-        Map<Position, Long> stackAdjustmentsByPosition = resolveStackAdjustments(hand);
+        Map<Position, Long> profitLoss = resolveStackAdjustments(hand);
+        Map<Position, Long> cashDepositsByPosition = resolveTableDeposits(hand);
 
         Matcher seatMatcher = SEAT_PATTERN.matcher(hand);
         List<Seat> seats = new ArrayList<>();
@@ -47,7 +48,10 @@ public class HandParser {
 
             long stack = penniesFromDollarsCentsString(seatMatcher.group(3));
 
-            seats.add(new Seat(seatNumber, position, me, stack, stackAdjustmentsByPosition.getOrDefault(position, 0L)));
+            long stackAdjustments = profitLoss.getOrDefault(position, 0L);
+            long cashDeposits = cashDepositsByPosition.getOrDefault(position, 0L);
+
+            seats.add(new Seat(seatNumber, position, me, stack, stackAdjustments, cashDeposits));
         }
 
         Blinds blinds = determineBlinds.apply(hand);
@@ -66,7 +70,13 @@ public class HandParser {
         processAdjustments(map, hand, CALLS_PATTERN, 2, true);
         processAdjustments(map, hand, RETURNS_UNCALLED_PORTION_OF_BET_PATTERN, 2, false);
         processAdjustments(map, hand, POT_DISTRIBUTION_PATTERN, 2, false);
-        processAdjustments(map, hand, TABLE_DEPOSIT_PATTERN, 2, true);
+
+        return map;
+    }
+
+    private Map<Position, Long> resolveTableDeposits(String hand) {
+        Map<Position, Long> map = new EnumMap<>(Position.class);
+        processAdjustments(map, hand, TABLE_DEPOSIT_PATTERN, 2, false);
 
         return map;
     }
