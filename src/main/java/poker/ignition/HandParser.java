@@ -1,5 +1,7 @@
 package poker.ignition;
 
+import poker.util.CurrencyUtil;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
+import static poker.util.CurrencyUtil.penniesFromDollarsCentsString;
 
 public class HandParser {
 
@@ -38,7 +41,7 @@ public class HandParser {
 
             Position position = getPositionOrThrow(positionDescription);
 
-            long stack = (long) (Double.parseDouble(seatMatcher.group(3)) * 100);
+            long stack = penniesFromDollarsCentsString(seatMatcher.group(3));
 
             seats.add(new Seat(seatNumber, position, me, stack, stackAdjustmentsByPosition.getOrDefault(position, 0L)));
         }
@@ -62,7 +65,7 @@ public class HandParser {
         Matcher m = adjustmentsPattern.matcher(hand);
         while (m.find()) {
             Position position = getPositionOrThrow(m.group());
-            long adjustment = (long) (Double.parseDouble(m.group(valueGroup)) * 100);
+            long adjustment = penniesFromDollarsCentsString(m.group(valueGroup));
             if (negate) {
                 adjustment = -adjustment;
             }
