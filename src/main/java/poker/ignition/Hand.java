@@ -1,23 +1,35 @@
 package poker.ignition;
 
+import com.google.common.base.MoreObjects;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.google.common.base.MoreObjects.toStringHelper;
-
 public class Hand {
 
     private final long id;
+    private final long smallBlind;
+    private final long bigBlind;
     private final List<Seat> seats;
 
-    public Hand(long id, List<Seat> seats) {
+    public Hand(long id, long smallBlind, long bigBlind, List<Seat> seats) {
         this.id = id;
+        this.smallBlind = smallBlind;
+        this.bigBlind = bigBlind;
         this.seats = seats;
     }
 
     public long getId() {
         return id;
+    }
+
+    public long getSmallBlind() {
+        return smallBlind;
+    }
+
+    public long getBigBlind() {
+        return bigBlind;
     }
 
     public List<Seat> getSeats() {
@@ -41,18 +53,22 @@ public class Hand {
         if (o == null || getClass() != o.getClass()) return false;
         Hand hand = (Hand) o;
         return id == hand.id &&
+                smallBlind == hand.smallBlind &&
+                bigBlind == hand.bigBlind &&
                 Objects.equals(seats, hand.seats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, seats);
+        return Objects.hash(id, smallBlind, bigBlind, seats);
     }
 
     @Override
     public String toString() {
-        return toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("id", id)
+                .add("smallBlind", smallBlind)
+                .add("bigBlind", bigBlind)
                 .add("seats", seats)
                 .toString();
     }

@@ -24,7 +24,7 @@ public class HandParser {
     private static final Pattern POST_BIG_BLIND_PATTERN = Pattern.compile("Big Blind.*?:.*?Big blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POST_CHIP_PATTERN = Pattern.compile(".*? : Posts chip (\\$(.*?)\\s)", CASE_INSENSITIVE);
 
-    public Hand parse(String hand) {
+    public Hand parse(String hand, long smallBlind, long largeBlind) {
         Matcher idMatcher = ID_PATTERN.matcher(hand);
         if (!idMatcher.find()) {
             throw new IllegalArgumentException(String.format("No hand id in %s", hand));
@@ -47,7 +47,7 @@ public class HandParser {
             seats.add(new Seat(seatNumber, position, me, stack, stackAdjustmentsByPosition.getOrDefault(position, 0L)));
         }
 
-        return new Hand(id, seats);
+        return new Hand(id, smallBlind, largeBlind, seats);
     }
 
     private Map<Position, Long> resolveStackAdjustments(String hand) {

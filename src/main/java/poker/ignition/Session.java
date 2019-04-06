@@ -10,22 +10,17 @@ public class Session {
     private final String id;
     private final LocalDateTime startTime;
     private final SessionType type;
-    private final long smallBlind;
-    private final long bigBlind;
     private final long tableNumber;
     private final long stack;
     private final long stackChange;
     private final List<Hand> hands;
 
     public Session(String id, LocalDateTime startTime, SessionType type,
-                   long smallBlind, long bigBlind,
                    long stack, long stackChange,
                    long tableNumber, List<Hand> hands) {
         this.id = id;
         this.startTime = startTime;
         this.type = type;
-        this.smallBlind = smallBlind;
-        this.bigBlind = bigBlind;
         this.tableNumber = tableNumber;
         this.stack = stack;
         this.stackChange = stackChange;
@@ -42,14 +37,6 @@ public class Session {
 
     public SessionType getType() {
         return type;
-    }
-
-    public long getSmallBlind() {
-        return smallBlind;
-    }
-
-    public long getBigBlind() {
-        return bigBlind;
     }
 
     public long getTableNumber() {
@@ -73,9 +60,7 @@ public class Session {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return smallBlind == session.smallBlind &&
-                bigBlind == session.bigBlind &&
-                tableNumber == session.tableNumber &&
+        return tableNumber == session.tableNumber &&
                 stack == session.stack &&
                 stackChange == session.stackChange &&
                 Objects.equals(id, session.id) &&
@@ -86,7 +71,7 @@ public class Session {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startTime, type, smallBlind, bigBlind, tableNumber, stack, stackChange, hands);
+        return Objects.hash(id, startTime, type, tableNumber, stack, stackChange, hands);
     }
 
     @Override
@@ -95,8 +80,6 @@ public class Session {
                 .add("id", id)
                 .add("startTime", startTime)
                 .add("type", type)
-                .add("smallBlind", smallBlind)
-                .add("bigBlind", bigBlind)
                 .add("tableNumber", tableNumber)
                 .add("stack", stack)
                 .add("stackChange", stackChange)

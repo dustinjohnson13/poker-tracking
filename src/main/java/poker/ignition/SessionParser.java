@@ -36,7 +36,7 @@ public class SessionParser {
         long stack = 0L;
         long stackChange = 0L;
 
-        List<Hand> hands = parseHands(fileContents);
+        List<Hand> hands = parseHands(fileContents, smallBlind, bigBlind);
         if (!hands.isEmpty()) {
             Hand firstHand = hands.iterator().next();
             Seat mySeat = firstHand.getMySeat();
@@ -47,16 +47,16 @@ public class SessionParser {
             stackChange = alsoMySeat.getStack() - stack + alsoMySeat.getStackChange();
         }
 
-        return new Session(id, startTime, type, smallBlind, bigBlind, tableNumber, stack, stackChange, hands);
+        return new Session(id, startTime, type, tableNumber, stack, stackChange, hands);
     }
 
-    private List<Hand> parseHands(String fileContents) {
+    private List<Hand> parseHands(String fileContents, long smallBlind, long bigBlind) {
         HandParser handParser = new HandParser();
         String[] splitIntoHands = fileContents.split(IGNITION_HAND_MARKER);
 
         return Arrays.stream(splitIntoHands)
                 .filter(it -> !Strings.isNullOrEmpty(it))
-                .map(it -> handParser.parse(IGNITION_HAND_MARKER + it))
+                .map(it -> handParser.parse(IGNITION_HAND_MARKER + it, smallBlind, bigBlind))
                 .collect(Collectors.toList());
     }
 }

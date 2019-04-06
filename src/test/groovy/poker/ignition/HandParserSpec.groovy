@@ -55,8 +55,8 @@ Seat+6: UTG Folded before the FLOP'''
         def expectedSeats = [new Seat(1, Position.UTG_1, false, 737L, 22L), new Seat(2, Position.UTG_2, false, 554L, 0L),
                              new Seat(3, Position.DEALER, false, 532L, -17L), new Seat(4, Position.SMALL_BLIND, false, 478L, -2L),
                              new Seat(5, Position.BIG_BLIND, true, 500L, -5L), new Seat(6, Position.UTG, false, 704L, 0L)]
-        def expected = new Hand(9876543210L, expectedSeats)
-        def actual = new HandParser().parse(hand)
+        def expected = new Hand(9876543210L, 2L, 5L, expectedSeats)
+        def actual = new HandParser().parse(hand, 2L, 5L)
 
         expect:
         actual == expected
@@ -120,8 +120,8 @@ Seat+9: Dealer Folded on the TURN'''
                              new Seat(3, Position.UTG, false, 440L, 0L), new Seat(5, Position.UTG_1, false, 217L, 0L),
                              new Seat(6, Position.UTG_2, false, 1139L, 0L), new Seat(7, Position.UTG_3, false, 468L, 0L),
                              new Seat(8, Position.UTG_4, false, 143L, -15L), new Seat(9, Position.DEALER, false, 542L, -25L)]
-        def expected = new Hand(6875559237L, expectedSeats)
-        def actual = new HandParser().parse(hand)
+        def expected = new Hand(6875559237L, 2L, 5L, expectedSeats)
+        def actual = new HandParser().parse(hand, 2L, 5L)
 
         expect:
         actual == expected
