@@ -32,6 +32,42 @@ public class Session {
         this.hands = hands;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public SessionType getType() {
+        return type;
+    }
+
+    public long getSmallBlind() {
+        return smallBlind;
+    }
+
+    public long getBigBlind() {
+        return bigBlind;
+    }
+
+    public long getTableNumber() {
+        return tableNumber;
+    }
+
+    public long getStack() {
+        return stack;
+    }
+
+    public long getStackChange() {
+        return stackChange;
+    }
+
+    public List<Hand> getHands() {
+        return hands;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

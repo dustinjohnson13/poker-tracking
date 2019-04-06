@@ -1,5 +1,7 @@
 package poker.util;
 
+import static java.lang.Math.round;
+
 public final class CurrencyUtil {
 
     private CurrencyUtil() {
@@ -13,6 +15,6 @@ public final class CurrencyUtil {
             string = string.substring(1);
         }
 
-        return (long) (Double.parseDouble(string) * 100);
+        return round(Double.parseDouble(string) * 100);
     }
 }

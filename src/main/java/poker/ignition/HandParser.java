@@ -15,11 +15,14 @@ public class HandParser {
 
     private static final Pattern ID_PATTERN = Pattern.compile("Hand #(\\d+)", CASE_INSENSITIVE);
     private static final Pattern SEAT_PATTERN = Pattern.compile("Seat (\\d+):(.*?)\\s\\(\\$(.*?)\\sin chips\\)", CASE_INSENSITIVE);
-    private static final Pattern RAISES_PATTERN = Pattern.compile(".*? : Raises (\\$(.*?)\\s) to (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern RAISES_PATTERN = Pattern.compile(".*? : Raises (\\$(.*?)) to (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern CALLS_PATTERN = Pattern.compile(".*? : Calls (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern BETS_PATTERN = Pattern.compile(".*? : Bets (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern RETURNS_UNCALLED_PORTION_OF_BET_PATTERN = Pattern.compile(".*? : Return uncalled portion of bet (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POT_DISTRIBUTION_PATTERN = Pattern.compile("Seat\\+\\d+: .*? (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POST_SMALL_BLIND_PATTERN = Pattern.compile("Small Blind.*?:.*?Small Blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POST_BIG_BLIND_PATTERN = Pattern.compile("Big Blind.*?:.*?Big blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern POST_CHIP_PATTERN = Pattern.compile(".*? : Posts chip (\\$(.*?)\\s)", CASE_INSENSITIVE);
 
     public Hand parse(String hand) {
         Matcher idMatcher = ID_PATTERN.matcher(hand);
@@ -52,8 +55,11 @@ public class HandParser {
 
         processAdjustments(map, hand, POST_SMALL_BLIND_PATTERN, 2, true);
         processAdjustments(map, hand, POST_BIG_BLIND_PATTERN, 2, true);
-        processAdjustments(map, hand, RAISES_PATTERN, 4, true);
+        processAdjustments(map, hand, POST_CHIP_PATTERN, 2, true);
+        processAdjustments(map, hand, RAISES_PATTERN, 2, true);
+        processAdjustments(map, hand, BETS_PATTERN, 2, true);
         processAdjustments(map, hand, CALLS_PATTERN, 2, true);
+        processAdjustments(map, hand, RETURNS_UNCALLED_PORTION_OF_BET_PATTERN, 2, false);
         processAdjustments(map, hand, POT_DISTRIBUTION_PATTERN, 2, false);
 
         return map;
@@ -63,7 +69,7 @@ public class HandParser {
         Matcher m = adjustmentsPattern.matcher(hand);
         while (m.find()) {
             Position position = getPositionOrThrow(m.group());
-            long adjustment = penniesFromDollarsCentsString(m.group(valueGroup));
+            long adjustment = penniesFromDollarsCentsString(m.group(valueGroup).trim());
             if (negate) {
                 adjustment = -adjustment;
             }
