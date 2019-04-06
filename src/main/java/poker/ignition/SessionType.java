@@ -1,5 +1,5 @@
 package poker.ignition;
 
 public enum SessionType {
-    RING, ZONE
+    RING, STT, ZONE
 }

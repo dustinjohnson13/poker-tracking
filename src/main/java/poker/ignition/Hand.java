@@ -9,14 +9,12 @@ import java.util.Optional;
 public class Hand {
 
     private final long id;
-    private final long smallBlind;
-    private final long bigBlind;
+    private final Blinds blinds;
     private final List<Seat> seats;
 
-    public Hand(long id, long smallBlind, long bigBlind, List<Seat> seats) {
+    public Hand(long id, Blinds blinds, List<Seat> seats) {
         this.id = id;
-        this.smallBlind = smallBlind;
-        this.bigBlind = bigBlind;
+        this.blinds = blinds;
         this.seats = seats;
     }
 
@@ -24,12 +22,8 @@ public class Hand {
         return id;
     }
 
-    public long getSmallBlind() {
-        return smallBlind;
-    }
-
-    public long getBigBlind() {
-        return bigBlind;
+    public Blinds getBlinds() {
+        return blinds;
     }
 
     public List<Seat> getSeats() {
@@ -53,22 +47,20 @@ public class Hand {
         if (o == null || getClass() != o.getClass()) return false;
         Hand hand = (Hand) o;
         return id == hand.id &&
-                smallBlind == hand.smallBlind &&
-                bigBlind == hand.bigBlind &&
+                Objects.equals(blinds, hand.blinds) &&
                 Objects.equals(seats, hand.seats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, smallBlind, bigBlind, seats);
+        return Objects.hash(id, blinds, seats);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
-                .add("smallBlind", smallBlind)
-                .add("bigBlind", bigBlind)
+                .add("blinds", blinds)
                 .add("seats", seats)
                 .toString();
     }

@@ -1,0 +1,230 @@
+Ignition Hand #2365702372: HOLDEM Tournament #37262539 TBL#1, Normal- Level 1 (10/20) - 2017-10-16 19:02:42
+Seat 1: UTG (1,500 in chips)
+Seat 8: UTG+1 [ME] (1,500 in chips)
+Seat 4: UTG+2 (1,500 in chips)
+Seat 6: UTG+3 (1,500 in chips)
+Seat 2: UTG+4 (1,500 in chips)
+Seat 5: UTG+5 (1,500 in chips)
+Seat 9: Dealer (1,500 in chips)
+Seat 7: Small Blind (1,500 in chips)
+Seat 3: Big Blind (1,500 in chips)
+Big Blind : Table enter user
+UTG : Table enter user
+UTG+1 [ME] : Table enter user
+Dealer : Table enter user
+UTG : Draw for dealer [8h]
+UTG+1 [ME] : Draw for dealer [3c]
+UTG+2 : Draw for dealer [7c]
+UTG+3 : Draw for dealer [4s]
+UTG+4 : Draw for dealer [2d]
+UTG+5 : Draw for dealer [7h]
+Dealer : Draw for dealer [Jh]
+Small Blind : Draw for dealer [Tc]
+Big Blind : Draw for dealer [Td]
+Dealer : Set dealer [7]
+Small Blind : Small blind 10
+Big Blind : Big blind 20
+*** HOLE CARDS ***
+UTG : Card dealt to a spot [Kd 3d]
+UTG+1 [ME] : Card dealt to a spot [9d Ts]
+UTG+2 : Card dealt to a spot [Kh 8c]
+UTG+3 : Card dealt to a spot [9c As]
+UTG+4 : Card dealt to a spot [5s 4h]
+UTG+5 : Card dealt to a spot [8d Ks]
+Dealer : Card dealt to a spot [2h Js]
+Small Blind : Card dealt to a spot [7s 3c]
+Big Blind : Card dealt to a spot [6c 2c]
+UTG+3 : Table enter user
+UTG+4 : Table enter user
+UTG : Folds
+UTG+5 : Table enter user
+UTG+1 [ME] : Folds
+UTG+2 : Fold(Blind Disconnected)
+UTG+3 : Call 20
+UTG+2 : Table enter user
+UTG+4 : Call 20
+UTG+5 : Call 20
+Dealer : Folds
+Small Blind : Fold(Blind Disconnected)
+Big Blind : Checks
+*** FLOP *** [Ac Jc Tc]
+Big Blind : Checks
+UTG+3 : Bets 60
+UTG+4 : Raises 332 to 332
+UTG+5 : Folds
+Big Blind : Folds
+UTG+3 : Call 272
+*** TURN *** [Ac Jc Tc] [Jd]
+UTG+3 : Checks
+UTG+4 : Bets 409
+UTG+3 : Call 409
+*** RIVER *** [Ac Jc Tc Jd] [6s]
+UTG+3 : Checks
+Small Blind : Table enter user
+UTG+4 : Bets 440
+UTG+3 : Call 440
+UTG+4 : Showdown [Jd Jc Ac Tc 6s] (One pair)
+UTG+3 : Showdown [As Ac Jd Jc Tc] (Two pair)
+UTG+3 : Hand Result 2452
+*** SUMMARY ***
+Total Pot(2452)
+Board [Ac Jc Tc Jd 6s]
+Seat+1: UTG Folded on the FLOP
+Seat+8: UTG+1 Folded on the FLOP
+Seat+4: UTG+2 Folded on the FLOP
+Seat+6: UTG+3 2452  with Two pair [9c As-As Ac Jd Jc Tc]
+Seat+2: UTG+4 lose with One pair [5s 4h-Jd Jc Ac Tc 6s]
+Seat+5: UTG+5 Folded on the FLOP
+Seat+9: Dealer Folded on the FLOP
+Seat+7: Small Blind Folded on the FLOP
+Seat+3: Big Blind Folded on the FLOP
+
+
+Ignition Hand #2365710356: HOLDEM Tournament #37262539 TBL#1, Normal- Level 2 (15/30) - 2017-10-16 19:14:30
+Seat 1: Small Blind (1,440 in chips)
+Seat 8: Big Blind [ME] (722 in chips)
+Seat 4: UTG (1,390 in chips)
+Seat 6: UTG+1 (2,621 in chips)
+Seat 5: UTG+2 (1,470 in chips)
+Seat 9: UTG+3 (3,130 in chips)
+Seat 7: UTG+4 (1,400 in chips)
+Seat 3: Dealer (1,327 in chips)
+Dealer : Set dealer [9]
+Small Blind : Small blind 15
+Big Blind [ME] : Big blind 30
+*** HOLE CARDS ***
+Small Blind : Card dealt to a spot [3s 5d]
+Big Blind [ME] : Card dealt to a spot [7h 2c]
+UTG : Card dealt to a spot [Ks 4h]
+UTG+1 : Card dealt to a spot [7s 9c]
+UTG+2 : Card dealt to a spot [3c Kd]
+UTG+3 : Card dealt to a spot [8s Qd]
+UTG+4 : Card dealt to a spot [6h Qc]
+Dealer : Card dealt to a spot [Jh 6s]
+UTG : Folds
+UTG+1 : Call 30
+UTG+2 : Folds
+UTG+3 : Folds
+UTG+4 : Folds
+Dealer : Call 30
+Small Blind : Folds
+Big Blind [ME] : Checks
+*** FLOP *** [Kh Td Qs]
+Big Blind [ME] : Checks
+UTG+1 : Checks
+Dealer : Checks
+*** TURN *** [Kh Td Qs] [Th]
+Big Blind [ME] : Checks
+UTG+1 : Checks
+Dealer : Checks
+*** RIVER *** [Kh Td Qs Th] [Ad]
+Big Blind [ME] : Checks
+UTG+1 : Checks
+Dealer : Bets 103
+Big Blind [ME] : Folds
+UTG+1 : Folds
+Dealer : Return uncalled portion of bet 103
+Dealer : Does not show [Jh 6s] (Straight)
+Dealer : Hand Result 105
+*** SUMMARY ***
+Total Pot(105)
+Board [Kh Td Qs Th Ad]
+Seat+1: Small Blind Folded on the FLOP
+Seat+8: Big Blind Folded on the RIVER
+Seat+4: UTG Folded on the FLOP
+Seat+6: UTG+1 Folded on the RIVER
+Seat+5: UTG+2 Folded on the FLOP
+Seat+9: UTG+3 Folded on the FLOP
+Seat+7: UTG+4 Folded on the FLOP
+Seat+3: Dealer 105 [Does not show]
+
+
+Ignition Hand #2365711424: HOLDEM Tournament #37262539 TBL#1, Normal- Level 2 (15/30) - 2017-10-16 19:16:06
+Seat 1: Dealer (1,425 in chips)
+Seat 8: Small Blind [ME] (692 in chips)
+Seat 4: Big Blind (1,390 in chips)
+Seat 6: UTG (2,591 in chips)
+Seat 5: UTG+1 (1,470 in chips)
+Seat 9: UTG+2 (3,130 in chips)
+Seat 7: UTG+3 (1,400 in chips)
+Seat 3: UTG+4 (1,402 in chips)
+Dealer : Set dealer [1]
+Small Blind [ME] : Small blind 15
+Big Blind : Big blind 30
+*** HOLE CARDS ***
+Dealer : Card dealt to a spot [Th Qd]
+Small Blind [ME] : Card dealt to a spot [8c Ah]
+Big Blind : Card dealt to a spot [2s Ts]
+UTG : Card dealt to a spot [Qh Kc]
+UTG+1 : Card dealt to a spot [6d Kh]
+UTG+2 : Card dealt to a spot [Jh 5s]
+UTG+3 : Card dealt to a spot [2h 3d]
+UTG+4 : Card dealt to a spot [Jd As]
+UTG : Call 30
+UTG+1 : Folds
+UTG+2 : Folds
+UTG+3 : Folds
+UTG+4 : Call 30
+Dealer : Folds
+Small Blind [ME] : Call 15
+Big Blind : Checks
+*** FLOP *** [3c 7d Td]
+Small Blind [ME] : Bets 60
+Big Blind : Call 60
+UTG : Folds
+UTG+4 : Call 60
+*** TURN *** [3c 7d Td] [2c]
+Small Blind [ME] : Bets 60
+Big Blind : Raises 480 to 480
+UTG+4 : Folds
+Small Blind [ME] : Folds
+Big Blind : Return uncalled portion of bet 420
+Big Blind : Showdown [Ts Td 2s 2c 7d] (Two pair)
+Big Blind : Hand Result 420
+*** SUMMARY ***
+Total Pot(420)
+Board [3c 7d Td 2c ]
+Seat+1: Dealer Folded on the FLOP
+Seat+8: Small Blind Folded on the TURN
+Seat+4: Big Blind 420  with Two pair [2s Ts-Ts Td 2s 2c 7d]
+Seat+6: UTG Folded on the FLOP
+Seat+5: UTG+1 Folded on the FLOP
+Seat+9: UTG+2 Folded on the FLOP
+Seat+7: UTG+3 Folded on the FLOP
+Seat+3: UTG+4 Folded on the TURN
+
+
+Ignition Hand #2365740574: HOLDEM Tournament #37262539 TBL#1, Normal- Level 6 (100/200) - 2017-10-16 19:57:48
+Seat 8: Small Blind [ME] (2,574 in chips)
+Seat 6: Big Blind (6,986 in chips)
+Seat 9: Dealer (3,940 in chips)
+Dealer : Set dealer [7]
+Small Blind [ME] : Small blind 100
+Big Blind : Big blind 200
+*** HOLE CARDS ***
+Small Blind [ME] : Card dealt to a spot [Td Js]
+Big Blind : Card dealt to a spot [Ah As]
+Dealer : Card dealt to a spot [5d 8d]
+Dealer : Folds
+Small Blind [ME] : Raises 300 to 400
+Big Blind : Call 200
+*** FLOP *** [Th 6s 2d]
+Small Blind [ME] : Bets 600
+Big Blind : All-in(raise) 6586 to 6586
+Small Blind [ME] : All-in 1574
+Big Blind : Return uncalled portion of bet 4412
+*** TURN *** [Th 6s 2d] [Qd]
+*** RIVER *** [Th 6s 2d Qd] [Qs]
+Small Blind [ME] : Showdown [Qs Qd Th Td Js] (Two pair)
+Big Blind : Showdown [As Ah Qs Qd Th] (Two pair)
+Big Blind : Hand Result 5148
+Small Blind [ME] : Ranking 3
+Small Blind [ME] : Prize Cash [$1.80]
+Small Blind [ME] : Stand
+*** SUMMARY ***
+Total Pot(5148)
+Board [Th 6s 2d Qd Qs]
+Seat+8: Small Blind lose with Two pair [Td Js-Qs Qd Th Td Js]
+Seat+6: Big Blind 5148  with Two pair [Ah As-As Ah Qs Qd Th]
+Seat+9: Dealer Folded on the FLOP
+
