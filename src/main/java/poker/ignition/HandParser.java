@@ -17,12 +17,14 @@ public class HandParser {
     private static final Pattern ID_PATTERN = Pattern.compile("Hand #(\\d+)", CASE_INSENSITIVE);
     private static final Pattern SEAT_PATTERN = Pattern.compile("Seat (\\d+):(.*?)\\s\\(\\$?(.*?)\\sin chips\\)", CASE_INSENSITIVE);
     private static final Pattern RAISES_PATTERN = Pattern.compile(".*? : Raises (\\$(.*?)) to (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern ALL_IN_RAISES_PATTERN = Pattern.compile(".*? : All-in\\(raise\\) (\\$(.*?)) to (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern CALLS_PATTERN = Pattern.compile(".*? : Calls (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern BETS_PATTERN = Pattern.compile(".*? : Bets (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern ALL_IN_PATTERN = Pattern.compile(".*? : All-in (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern RETURNS_UNCALLED_PORTION_OF_BET_PATTERN = Pattern.compile(".*? : Return uncalled portion of bet (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POT_DISTRIBUTION_PATTERN = Pattern.compile("Seat\\+\\d+: .*? (\\$(.*?)\\s)", CASE_INSENSITIVE);
-    private static final Pattern POST_SMALL_BLIND_PATTERN = Pattern.compile("Small Blind.*?:.*?Small Blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
-    private static final Pattern POST_BIG_BLIND_PATTERN = Pattern.compile("Big Blind.*?:.*?Big blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern POST_SMALL_BLIND_PATTERN = Pattern.compile(".*?:.*?Small Blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern POST_BIG_BLIND_PATTERN = Pattern.compile(".*?:.*?Big blind (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern POST_CHIP_PATTERN = Pattern.compile(".*? : Posts chip (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern BLIND_LEVEL_PATTERN = Pattern.compile(".*? Level \\d+ \\((\\d+)/(\\d+)\\).*", CASE_INSENSITIVE);
     private static final Pattern TABLE_DEPOSIT_PATTERN = Pattern.compile(".*? : Table deposit (\\$(.*?)\\s)", CASE_INSENSITIVE);
@@ -34,6 +36,7 @@ public class HandParser {
         }
         long id = Long.parseLong(idMatcher.group(1));
 
+        Map<Position, Long> blindsByPosition = resolveBlinds(hand);
         Map<Position, Long> profitLoss = resolveStackAdjustments(hand);
         Map<Position, Long> cashDepositsByPosition = resolveTableDeposits(hand);
 
@@ -48,7 +51,7 @@ public class HandParser {
 
             long stack = penniesFromDollarsCentsString(seatMatcher.group(3));
 
-            long stackAdjustments = profitLoss.getOrDefault(position, 0L);
+            long stackAdjustments = blindsByPosition.getOrDefault(position, 0L) + profitLoss.getOrDefault(position, 0L);
             long cashDeposits = cashDepositsByPosition.getOrDefault(position, 0L);
 
             seats.add(new Seat(seatNumber, position, me, stack, stackAdjustments, cashDeposits));
@@ -59,15 +62,26 @@ public class HandParser {
         return new Hand(id, new Blinds(blinds.getSmall(), blinds.getBig()), seats);
     }
 
+    private Map<Position, Long> resolveBlinds(String hand) {
+        int startOfHoleCards = hand.indexOf("*** HOLE CARDS ***");
+        String preDeal = hand.substring(0, startOfHoleCards);
+        Map<Position, Long> map = new EnumMap<>(Position.class);
+
+        processAdjustments(map, preDeal, POST_SMALL_BLIND_PATTERN, 2, true);
+        processAdjustments(map, preDeal, POST_BIG_BLIND_PATTERN, 2, true);
+        processAdjustments(map, preDeal, POST_CHIP_PATTERN, 2, true);
+
+        return map;
+    }
+
     private Map<Position, Long> resolveStackAdjustments(String hand) {
         Map<Position, Long> map = new EnumMap<>(Position.class);
 
-        processAdjustments(map, hand, POST_SMALL_BLIND_PATTERN, 2, true);
-        processAdjustments(map, hand, POST_BIG_BLIND_PATTERN, 2, true);
-        processAdjustments(map, hand, POST_CHIP_PATTERN, 2, true);
         processAdjustments(map, hand, RAISES_PATTERN, 2, true);
+        processAdjustments(map, hand, ALL_IN_RAISES_PATTERN, 2, true);
         processAdjustments(map, hand, BETS_PATTERN, 2, true);
         processAdjustments(map, hand, CALLS_PATTERN, 2, true);
+        processAdjustments(map, hand, ALL_IN_PATTERN, 2, true);
         processAdjustments(map, hand, RETURNS_UNCALLED_PORTION_OF_BET_PATTERN, 2, false);
         processAdjustments(map, hand, POT_DISTRIBUTION_PATTERN, 2, false);
 

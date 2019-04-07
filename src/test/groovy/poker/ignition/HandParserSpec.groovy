@@ -195,4 +195,145 @@ Seat+9: Big Blind Folded on the FLOP'''
         actual == expected
     }
 
+    def 'should be able to parse a hand with an all-in'() {
+        def hand = '''Ignition Hand #2654346146  Zone Poker ID#1135 HOLDEMZonePoker No Limit - 2019-03-27 21:47:16
+Seat 1: UTG ($5.50 in chips)
+Seat 2: UTG+1 ($4.95 in chips)
+Seat 3: UTG+2 ($4.94 in chips)
+Seat 4: Dealer ($3.59 in chips)
+Seat 5: Small Blind ($4.95 in chips)
+Seat 6: Big Blind [ME] ($3.62 in chips)
+Dealer : Set dealer [4] 
+Small Blind : Small Blind $0.02 
+Big Blind  [ME] : Big blind $0.05 
+*** HOLE CARDS ***
+UTG : Card dealt to a spot [3c 5c] 
+UTG+1 : Card dealt to a spot [2c Jh] 
+UTG+2 : Card dealt to a spot [Qd 8s] 
+Dealer : Card dealt to a spot [Ks Kd] 
+Small Blind : Card dealt to a spot [Tc Td] 
+Big Blind  [ME] : Card dealt to a spot [3s As] 
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Dealer : Raises $0.10 to $0.10
+Small Blind : Calls $0.08 
+Big Blind  [ME] : Calls $0.05 
+*** FLOP *** [9c Qs Ts]
+Small Blind : Bets $0.47 
+Big Blind  [ME] : Calls $0.47 
+Dealer : All-in(raise) $3.49 to $3.49
+Small Blind : Calls $3.02 
+Big Blind  [ME] : Calls $3.02 
+*** TURN *** [9c Qs Ts] [Th]
+Small Blind : All-in $1.36 
+Big Blind  [ME] : All-in $0.03 
+Small Blind : Return uncalled portion of bet $1.33 
+*** RIVER *** [9c Qs Ts Th] [7s]
+Dealer : Showdown [Ks Kd Ts Th Qs] (Two pair)
+Small Blind : Showdown [Ts Th Td Tc Qs] (Four of a kind)
+Big Blind  [ME] : Showdown [As Qs Ts 7s 3s] (Flush)
+Small Blind : Hand result-Side pot $0.06 
+Small Blind : Hand result $10.23 
+Dealer : Seat sit out
+Dealer : Leave(Auto)
+Big Blind  [ME] : Seat sit out
+Big Blind  [ME] : Leave(Auto)
+Small Blind : Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+UTG+1 : Enter(Auto)
+*** SUMMARY ***'''
+
+        def expectedSeats = [
+                new Seat(1, Position.UTG, false, 550L, 0L, 0L), new Seat(2, Position.UTG_1, false, 495L, 0L, 0L),
+                new Seat(3, Position.UTG_2, false, 494L, 0L, 0L), new Seat(4, Position.DEALER, false, 359L, -359L, 0L),
+                new Seat(5, Position.SMALL_BLIND, false, 495L, -362, 0L), new Seat(6, Position.BIG_BLIND, true, 362L, -362L, 0L)
+        ]
+        def expected = new Hand(2654346146L, new Blinds(2L, 5L), expectedSeats)
+        def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
+
+        expect:
+        actual == expected
+    }
+
+    def 'should be able to parse a hand with an all-in raise'() {
+        def hand = '''Ignition Hand #2654346146 TBL#17734908 HOLDEM No Limit - 2019-04-01 21:44:55
+Seat 1: Dealer ($5.63 in chips)
+Seat 2: Small Blind ($4.95 in chips)
+Seat 3: Big Blind ($4.57 in chips)
+Seat 4: UTG ($3.70 in chips)
+Seat 5: UTG+1 ($3.78 in chips)
+Seat 6: UTG+2 [ME] ($2.75 in chips)
+Seat 7: UTG+3 ($13.94 in chips)
+Seat 8: UTG+4 ($1.56 in chips)
+Seat 9: UTG+5 ($5 in chips)
+Dealer : Set dealer [1] 
+Small Blind : Small Blind $0.02 
+Big Blind : Big blind $0.05 
+*** HOLE CARDS ***
+Dealer : Card dealt to a spot [8c 7h] 
+Small Blind : Card dealt to a spot [Jh 2d] 
+Big Blind : Card dealt to a spot [8d 6c] 
+UTG : Card dealt to a spot [9s 9d] 
+UTG+1 : Card dealt to a spot [8h Kc] 
+UTG+2  [ME] : Card dealt to a spot [Ah Ac] 
+UTG+3 : Card dealt to a spot [Tc 6h] 
+UTG+4 : Card dealt to a spot [4h 2c] 
+UTG+5 : Card dealt to a spot [Ts 9c] 
+UTG : Raises $0.25 to $0.25
+UTG+1 : Folds
+UTG+2  [ME] : Raises $0.45 to $0.45
+UTG+3 : Folds
+UTG+4 : Folds
+UTG+5 : Folds
+Dealer : Folds
+Small Blind : Folds
+Big Blind : Folds
+UTG : Calls $0.20 
+*** FLOP *** [6s 6d 9h]
+UTG : Checks
+UTG+2  [ME] : Bets $0.48 
+UTG : Raises $1.67 to $1.67
+UTG+2  [ME] : All-in(raise) $1.82 to $2.30
+UTG : Calls $0.63 
+*** TURN *** [6s 6d 9h] [3d]
+*** RIVER *** [6s 6d 9h 3d] [Qs]
+UTG : Showdown [9s 9h 9d 6s 6d] (Full House)
+UTG+2  [ME] : Showdown [Ah Ac 6s 6d Qs] (Two pair)
+UTG : Hand result $5.30 
+UTG+2  [ME] : Seat sit out
+*** SUMMARY ***
+Total Pot($5.57)
+Board [6s 6d 9h 3d Qs]
+Seat+1: Dealer Folded before the FLOP
+Seat+2: Small Blind Folded before the FLOP
+Seat+3: Big Blind Folded before the FLOP
+Seat+4: UTG $5.30  with Full House [9s 9d-9s 9h 9d 6s 6d]  
+Seat+5: UTG+1 Folded before the FLOP
+Seat+6: UTG+2 lost with Two pair [Ah Ac-Ah Ac 6s 6d Qs]  
+Seat+7: UTG+3 Folded before the FLOP
+Seat+8: UTG+4 Folded before the FLOP
+Seat+9: UTG+5 Folded before the FLOP'''
+
+        def expectedSeats = [
+                new Seat(1, Position.DEALER, false, 563L, 0L, 0L), new Seat(2, Position.SMALL_BLIND, false, 495L, -2L, 0L),
+                new Seat(3, Position.BIG_BLIND, false, 457L, -5L, 0L), new Seat(4, Position.UTG, false, 370L, 255L, 0L),
+                new Seat(5, Position.UTG_1, false, 378L, 0L, 0L), new Seat(6, Position.UTG_2, true, 275L, -275L, 0L),
+                new Seat(7, Position.UTG_3, false, 1394L, 0L, 0L), new Seat(8, Position.UTG_4, false, 156L, 0L, 0L),
+                new Seat(9, Position.UTG_5, false, 500L, 0L, 0L)
+        ]
+        def expected = new Hand(2654346146L, new Blinds(2L, 5L), expectedSeats)
+        def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
+
+        expect:
+        actual == expected
+    }
+
 }

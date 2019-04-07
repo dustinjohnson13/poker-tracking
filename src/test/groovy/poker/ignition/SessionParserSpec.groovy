@@ -49,7 +49,7 @@ class SessionParserSpec extends Specification {
                 new Hand(2577018523L, new Blinds(2L, 5L), [
                         new Seat(1, SMALL_BLIND, false, 284L, 172L, 0L),
                         new Seat(2, BIG_BLIND, false, 597L, -5L, 0L),
-                        new Seat(3, UTG, false, 185L, 0L, 0L),
+                        new Seat(3, UTG, false, 185L, -185L, 0L),
                         new Seat(4, UTG_1, false, 476L, 0L, 0L),
                         new Seat(5, UTG_2, true, 913L, 0L, 0L),
                         new Seat(6, DEALER, false, 694L, 0L, 0L)]
@@ -202,6 +202,10 @@ class SessionParserSpec extends Specification {
         def actual = new SessionParser().parse(filename, SessionParserSpec.getResourceAsStream(filename).text)
 
         expect:
+        expectedHands.eachWithIndex{ Hand expectedHand, int idx ->
+            assert actual.hands[idx] == expectedHand
+        }
+
         actual == new Session('HH20190322-143439', ldt(2019, MARCH, 22, 14, 34, 39), RING,
                 500L, 771L, 11131131L, expectedHands)
     }
@@ -218,9 +222,9 @@ class SessionParserSpec extends Specification {
                         new Seat(6, SMALL_BLIND, false, 204L, -2L, 0L)
                 ]),
                 new Hand(5234324606L, new Blinds(2L, 5L), [
-                        new Seat(1, SMALL_BLIND, false, 380L, -65L, 0L),
+                        new Seat(1, SMALL_BLIND, false, 380L, -380L, 0L),
                         new Seat(2, BIG_BLIND, false, 474L, -5L, 0L),
-                        new Seat(3, UTG, false, 297L, -65L, 0L),
+                        new Seat(3, UTG, false, 297L, -297L, 0L),
                         new Seat(4, UTG_1, true, 502L, 0L, 0L),
                         new Seat(5, UTG_2, false, 389L, 0L, 0L),
                         new Seat(6, DEALER, false, 500L, -380L, 0L)
@@ -247,6 +251,10 @@ class SessionParserSpec extends Specification {
         def actual = new SessionParser().parse(filename, SessionParserSpec.getResourceAsStream(filename).text)
 
         expect:
+        expectedHands.eachWithIndex{ Hand expectedHand, int idx ->
+            assert actual.hands[idx] == expectedHand
+        }
+
         actual == new Session('HH20190326-200544', ldt(2019, MARCH, 26, 20, 5, 44), ZONE,
                 500L, 502L, 3156L, expectedHands)
     }
@@ -297,6 +305,10 @@ class SessionParserSpec extends Specification {
         def actual = new SessionParser().parse(filename, SessionParserSpec.getResourceAsStream(filename).text)
 
         expect:
+        expectedHands.eachWithIndex{ Hand expectedHand, int idx ->
+            assert actual.hands[idx] == expectedHand
+        }
+
         actual == new Session('HH20171016-190220', ldt(2017, OCTOBER, 16, 19, 2, 20), STT,
                 110L, 180L, 37262539L, expectedHands)
     }

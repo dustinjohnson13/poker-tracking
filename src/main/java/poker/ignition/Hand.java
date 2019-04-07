@@ -41,6 +41,10 @@ public class Hand {
         return mySeat.get();
     }
 
+    public long getCashDeposit() {
+        return getMySeat().getCashDeposit();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

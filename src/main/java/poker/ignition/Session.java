@@ -55,6 +55,12 @@ public class Session {
         return hands;
     }
 
+    public long getProfitLoss() {
+        long cashDeposits = hands.stream().mapToLong(Hand::getCashDeposit).sum();
+
+        return cashOut - cashIn - cashDeposits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
