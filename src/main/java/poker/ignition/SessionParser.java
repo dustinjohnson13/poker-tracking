@@ -17,7 +17,8 @@ import static poker.util.CurrencyUtil.penniesFromDollarsCentsString;
 
 public class SessionParser {
 
-    private static final DateTimeFormatter SESSION_START_FORMATTER = DateTimeFormatter.ofPattern("'HH'yyyyMMdd-HHmmss");
+    public static final DateTimeFormatter SESSION_START_FORMATTER = DateTimeFormatter.ofPattern("'HH'yyyyMMdd-HHmmss");
+
     private static final String IGNITION_HAND_MARKER = "Ignition Hand #";
     private static final Pattern TOURNAMENT_COST_PATTERN = Pattern.compile("Holdem - \\$(\\d+)-\\$(.*?) ");
     private static final Pattern TOURNAMENT_PRIZE_CASH_PATTERN = Pattern.compile(".*? \\[ME] : Prize Cash \\[\\$(.*?)]");

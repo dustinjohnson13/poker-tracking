@@ -20,7 +20,7 @@ public class ProfitLossReporter {
         this.initialDeposit = initialDeposit;
     }
 
-    public void writeReport() throws IOException {
+    String getReport() throws IOException {
 
         SortedSet<Session> sessions = new TreeSet<>(Comparator.comparing(Session::getStartTime));
 
@@ -32,10 +32,19 @@ public class ProfitLossReporter {
             sessions.add(session);
         }
 
+        StringBuilder sb = new StringBuilder();
         long bankroll = initialDeposit;
         for (Session session : sessions) {
             bankroll += session.getProfitLoss();
-            System.out.println(bankroll + " " + session.getStartTime());
+            sb.append(bankroll).append(" ")
+                    .append(session.getStartTime())
+                    .append("\n");
         }
+
+        return sb.toString();
+    }
+
+    public void writeReport() throws IOException {
+        System.out.println(getReport());
     }
 }
