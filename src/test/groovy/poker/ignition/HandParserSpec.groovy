@@ -1,6 +1,50 @@
 package poker.ignition
 
+import poker.domain.HoleCards
 import spock.lang.Specification
+
+import static poker.domain.Card.ACE_OF_CLUBS
+import static poker.domain.Card.ACE_OF_DIAMONDS
+import static poker.domain.Card.ACE_OF_HEARTS
+import static poker.domain.Card.ACE_OF_SPADES
+import static poker.domain.Card.EIGHT_OF_CLUBS
+import static poker.domain.Card.EIGHT_OF_DIAMONDS
+import static poker.domain.Card.EIGHT_OF_HEARTS
+import static poker.domain.Card.EIGHT_OF_SPADES
+import static poker.domain.Card.FIVE_OF_CLUBS
+import static poker.domain.Card.FIVE_OF_DIAMONDS
+import static poker.domain.Card.FIVE_OF_HEARTS
+import static poker.domain.Card.FOUR_OF_CLUBS
+import static poker.domain.Card.FOUR_OF_DIAMONDS
+import static poker.domain.Card.FOUR_OF_HEARTS
+import static poker.domain.Card.JACK_OF_HEARTS
+import static poker.domain.Card.JACK_OF_SPADES
+import static poker.domain.Card.KING_OF_CLUBS
+import static poker.domain.Card.KING_OF_DIAMONDS
+import static poker.domain.Card.KING_OF_HEARTS
+import static poker.domain.Card.KING_OF_SPADES
+import static poker.domain.Card.NINE_OF_CLUBS
+import static poker.domain.Card.NINE_OF_DIAMONDS
+import static poker.domain.Card.NINE_OF_SPADES
+import static poker.domain.Card.QUEEN_OF_DIAMONDS
+import static poker.domain.Card.SEVEN_OF_DIAMONDS
+import static poker.domain.Card.SEVEN_OF_HEARTS
+import static poker.domain.Card.SEVEN_OF_SPADES
+import static poker.domain.Card.SIX_OF_CLUBS
+import static poker.domain.Card.SIX_OF_DIAMONDS
+import static poker.domain.Card.SIX_OF_HEARTS
+import static poker.domain.Card.SIX_OF_SPADES
+import static poker.domain.Card.TEN_OF_CLUBS
+import static poker.domain.Card.TEN_OF_DIAMONDS
+import static poker.domain.Card.TEN_OF_HEARTS
+import static poker.domain.Card.TEN_OF_SPADES
+import static poker.domain.Card.THREE_OF_CLUBS
+import static poker.domain.Card.THREE_OF_DIAMONDS
+import static poker.domain.Card.THREE_OF_HEARTS
+import static poker.domain.Card.THREE_OF_SPADES
+import static poker.domain.Card.TWO_OF_CLUBS
+import static poker.domain.Card.TWO_OF_DIAMONDS
+import static poker.domain.Card.TWO_OF_SPADES
 
 class HandParserSpec extends Specification {
 
@@ -52,9 +96,12 @@ Seat+4: Small Blind Folded before the FLOP
 Seat+5: Big Blind Folded before the FLOP
 Seat+6: UTG Folded before the FLOP'''
 
-        def expectedSeats = [new Seat(1, Position.UTG_1, false, 737L, 22L, 0L), new Seat(2, Position.UTG_2, false, 554L, 0L, 0L),
-                             new Seat(3, Position.DEALER, false, 532L, -17L, 0L), new Seat(4, Position.SMALL_BLIND, false, 478L, -2L, 0L),
-                             new Seat(5, Position.BIG_BLIND, true, 500L, -5L, 0L), new Seat(6, Position.UTG, false, 704L, 0L, 0L)]
+        def expectedSeats = [new Seat(1, Position.UTG_1, new HoleCards(EIGHT_OF_CLUBS, FOUR_OF_CLUBS), false, 737L, 22L, 0L),
+                             new Seat(2, Position.UTG_2, new HoleCards(THREE_OF_DIAMONDS, EIGHT_OF_SPADES), false, 554L, 0L, 0L),
+                             new Seat(3, Position.DEALER, new HoleCards(FIVE_OF_HEARTS, FIVE_OF_DIAMONDS), false, 532L, -17L, 0L),
+                             new Seat(4, Position.SMALL_BLIND, new HoleCards(JACK_OF_SPADES, THREE_OF_HEARTS), false, 478L, -2L, 0L),
+                             new Seat(5, Position.BIG_BLIND, new HoleCards(FOUR_OF_DIAMONDS, KING_OF_HEARTS), true, 500L, -5L, 0L),
+                             new Seat(6, Position.UTG, new HoleCards(TWO_OF_SPADES, FIVE_OF_CLUBS), false, 704L, 0L, 0L)]
         def expected = new Hand(9876543210L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 
@@ -115,10 +162,14 @@ Seat+7: UTG+3 Folded before the FLOP
 Seat+8: UTG+4 Folded on the FLOP
 Seat+9: Dealer Folded on the TURN'''
 
-        def expectedSeats = [new Seat(1, Position.SMALL_BLIND, true, 495L, 51L, 0L), new Seat(2, Position.BIG_BLIND, false, 500L, -15L, 0L),
-                             new Seat(3, Position.UTG, false, 440L, 0L, 0L), new Seat(5, Position.UTG_1, false, 217L, 0L, 0L),
-                             new Seat(6, Position.UTG_2, false, 1139L, 0L, 0L), new Seat(7, Position.UTG_3, false, 468L, 0L, 0L),
-                             new Seat(8, Position.UTG_4, false, 143L, -15L, 0L), new Seat(9, Position.DEALER, false, 542L, -25L, 0L)]
+        def expectedSeats = [new Seat(1, Position.SMALL_BLIND, new HoleCards(TEN_OF_SPADES, TEN_OF_CLUBS), true, 495L, 51L, 0L),
+                             new Seat(2, Position.BIG_BLIND, new HoleCards(THREE_OF_DIAMONDS, FOUR_OF_DIAMONDS), false, 500L, -15L, 0L),
+                             new Seat(3, Position.UTG, new HoleCards(TWO_OF_DIAMONDS, SIX_OF_SPADES), false, 440L, 0L, 0L),
+                             new Seat(5, Position.UTG_1, new HoleCards(KING_OF_DIAMONDS, EIGHT_OF_HEARTS), false, 217L, 0L, 0L),
+                             new Seat(6, Position.UTG_2, new HoleCards(NINE_OF_CLUBS, FIVE_OF_HEARTS), false, 1139L, 0L, 0L),
+                             new Seat(7, Position.UTG_3, new HoleCards(TEN_OF_HEARTS, THREE_OF_HEARTS), false, 468L, 0L, 0L),
+                             new Seat(8, Position.UTG_4, new HoleCards(ACE_OF_SPADES, SEVEN_OF_SPADES), false, 143L, -15L, 0L),
+                             new Seat(9, Position.DEALER, new HoleCards(TEN_OF_DIAMONDS, JACK_OF_SPADES), false, 542L, -25L, 0L)]
         def expected = new Hand(6875559237L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 
@@ -184,10 +235,13 @@ Seat+6: Dealer Folded before the FLOP
 Seat+8: Small Blind Folded on the FLOP
 Seat+9: Big Blind Folded on the FLOP'''
 
-        def expectedSeats = [new Seat(1, Position.UTG, false, 503L, 0L, 0L), new Seat(2, Position.UTG_1, true, 131L, 0L, 369L),
-                             new Seat(3, Position.UTG_2, false, 321, -28L, 0L), new Seat(4, Position.UTG_3, false, 245L, 35L, 0L),
-                             new Seat(6, Position.DEALER, false, 511L, 0L, 0L), new Seat(8, Position.SMALL_BLIND, false, 491L, -5L, 0L),
-                             new Seat(9, Position.BIG_BLIND, false, 661L, -5L, 0L)]
+        def expectedSeats = [new Seat(1, Position.UTG, new HoleCards(THREE_OF_SPADES, FOUR_OF_HEARTS), false, 503L, 0L, 0L),
+                             new Seat(2, Position.UTG_1, new HoleCards(TEN_OF_HEARTS, SEVEN_OF_DIAMONDS), true, 131L, 0L, 369L),
+                             new Seat(3, Position.UTG_2, new HoleCards(ACE_OF_DIAMONDS, TWO_OF_CLUBS), false, 321, -28L, 0L),
+                             new Seat(4, Position.UTG_3, new HoleCards(ACE_OF_CLUBS, THREE_OF_HEARTS), false, 245L, 35L, 0L),
+                             new Seat(6, Position.DEALER, new HoleCards(SIX_OF_DIAMONDS, KING_OF_HEARTS), false, 511L, 0L, 0L),
+                             new Seat(8, Position.SMALL_BLIND, new HoleCards(TWO_OF_DIAMONDS, SIX_OF_SPADES), false, 491L, -5L, 0L),
+                             new Seat(9, Position.BIG_BLIND, new HoleCards(NINE_OF_CLUBS, TWO_OF_SPADES), false, 661L, -5L, 0L)]
         def expected = new Hand(3752288142L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
 
@@ -252,9 +306,12 @@ UTG+1 : Enter(Auto)
 *** SUMMARY ***'''
 
         def expectedSeats = [
-                new Seat(1, Position.UTG, false, 550L, 0L, 0L), new Seat(2, Position.UTG_1, false, 495L, 0L, 0L),
-                new Seat(3, Position.UTG_2, false, 494L, 0L, 0L), new Seat(4, Position.DEALER, false, 359L, -359L, 0L),
-                new Seat(5, Position.SMALL_BLIND, false, 495L, -362, 0L), new Seat(6, Position.BIG_BLIND, true, 362L, -362L, 0L)
+                new Seat(1, Position.UTG, new HoleCards(THREE_OF_CLUBS, FIVE_OF_CLUBS), false, 550L, 0L, 0L),
+                new Seat(2, Position.UTG_1, new HoleCards(TWO_OF_CLUBS, JACK_OF_HEARTS), false, 495L, 0L, 0L),
+                new Seat(3, Position.UTG_2, new HoleCards(QUEEN_OF_DIAMONDS, EIGHT_OF_SPADES), false, 494L, 0L, 0L),
+                new Seat(4, Position.DEALER, new HoleCards(KING_OF_SPADES, KING_OF_DIAMONDS), false, 359L, -359L, 0L),
+                new Seat(5, Position.SMALL_BLIND, new HoleCards(TEN_OF_CLUBS, TEN_OF_DIAMONDS), false, 495L, -362, 0L),
+                new Seat(6, Position.BIG_BLIND, new HoleCards(THREE_OF_SPADES, ACE_OF_SPADES), true, 362L, -362L, 0L)
         ]
         def expected = new Hand(2654346146L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })
@@ -323,11 +380,15 @@ Seat+8: UTG+4 Folded before the FLOP
 Seat+9: UTG+5 Folded before the FLOP'''
 
         def expectedSeats = [
-                new Seat(1, Position.DEALER, false, 563L, 0L, 0L), new Seat(2, Position.SMALL_BLIND, false, 495L, -2L, 0L),
-                new Seat(3, Position.BIG_BLIND, false, 457L, -5L, 0L), new Seat(4, Position.UTG, false, 370L, 255L, 0L),
-                new Seat(5, Position.UTG_1, false, 378L, 0L, 0L), new Seat(6, Position.UTG_2, true, 275L, -275L, 0L),
-                new Seat(7, Position.UTG_3, false, 1394L, 0L, 0L), new Seat(8, Position.UTG_4, false, 156L, 0L, 0L),
-                new Seat(9, Position.UTG_5, false, 500L, 0L, 0L)
+                new Seat(1, Position.DEALER, new HoleCards(EIGHT_OF_CLUBS, SEVEN_OF_HEARTS), false, 563L, 0L, 0L),
+                new Seat(2, Position.SMALL_BLIND, new HoleCards(JACK_OF_HEARTS, TWO_OF_DIAMONDS), false, 495L, -2L, 0L),
+                new Seat(3, Position.BIG_BLIND, new HoleCards(EIGHT_OF_DIAMONDS, SIX_OF_CLUBS), false, 457L, -5L, 0L),
+                new Seat(4, Position.UTG, new HoleCards(NINE_OF_SPADES, NINE_OF_DIAMONDS), false, 370L, 255L, 0L),
+                new Seat(5, Position.UTG_1, new HoleCards(EIGHT_OF_HEARTS, KING_OF_CLUBS), false, 378L, 0L, 0L),
+                new Seat(6, Position.UTG_2, new HoleCards(ACE_OF_HEARTS, ACE_OF_CLUBS), true, 275L, -275L, 0L),
+                new Seat(7, Position.UTG_3, new HoleCards(TEN_OF_CLUBS, SIX_OF_HEARTS), false, 1394L, 0L, 0L),
+                new Seat(8, Position.UTG_4, new HoleCards(FOUR_OF_HEARTS, TWO_OF_CLUBS), false, 156L, 0L, 0L),
+                new Seat(9, Position.UTG_5, new HoleCards(TEN_OF_SPADES, NINE_OF_CLUBS), false, 500L, 0L, 0L)
         ]
         def expected = new Hand(2654346146L, new Blinds(2L, 5L), expectedSeats)
         def actual = new HandParser().parse(hand, { s -> new Blinds(2L, 5L) })

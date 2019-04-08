@@ -1,5 +1,8 @@
 package poker.ignition;
 
+import poker.domain.Card;
+import poker.domain.HoleCards;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -28,6 +31,7 @@ public class HandParser {
     private static final Pattern POST_CHIP_PATTERN = Pattern.compile(".*? : Posts chip (\\$(.*?)\\s)", CASE_INSENSITIVE);
     private static final Pattern BLIND_LEVEL_PATTERN = Pattern.compile(".*? Level \\d+ \\((\\d+)/(\\d+)\\).*", CASE_INSENSITIVE);
     private static final Pattern TABLE_DEPOSIT_PATTERN = Pattern.compile(".*? : Table deposit (\\$(.*?)\\s)", CASE_INSENSITIVE);
+    private static final Pattern CARD_DEALT_PATTERN = Pattern.compile(".*? : Card dealt to a spot \\[(.*?) (.*?)]", CASE_INSENSITIVE);
 
     public Hand parse(String hand, Function<String, Blinds> determineBlinds) {
         Matcher idMatcher = ID_PATTERN.matcher(hand);
@@ -39,6 +43,7 @@ public class HandParser {
         Map<Position, Long> blindsByPosition = resolveBlinds(hand);
         Map<Position, Long> profitLoss = resolveStackAdjustments(hand);
         Map<Position, Long> cashDepositsByPosition = resolveTableDeposits(hand);
+        Map<Position, HoleCards> holeCardsByPosition = resolveHoleCards(hand);
 
         Matcher seatMatcher = SEAT_PATTERN.matcher(hand);
         List<Seat> seats = new ArrayList<>();
@@ -49,17 +54,31 @@ public class HandParser {
 
             Position position = getPositionOrThrow(positionDescription);
 
+            HoleCards holeCards = holeCardsByPosition.get(position);
             long stack = penniesFromDollarsCentsString(seatMatcher.group(3));
 
             long stackAdjustments = blindsByPosition.getOrDefault(position, 0L) + profitLoss.getOrDefault(position, 0L);
             long cashDeposits = cashDepositsByPosition.getOrDefault(position, 0L);
 
-            seats.add(new Seat(seatNumber, position, me, stack, stackAdjustments, cashDeposits));
+            seats.add(new Seat(seatNumber, position, holeCards, me, stack, stackAdjustments, cashDeposits));
         }
 
         Blinds blinds = determineBlinds.apply(hand);
 
         return new Hand(id, new Blinds(blinds.getSmall(), blinds.getBig()), seats);
+    }
+
+    private Map<Position, HoleCards> resolveHoleCards(String hand) {
+        Map<Position, HoleCards> map = new EnumMap<>(Position.class);
+        Matcher m = CARD_DEALT_PATTERN.matcher(hand);
+        while (m.find()) {
+            Position position = getPositionOrThrow(m.group());
+            Card first = Card.parse(m.group(1));
+            Card second = Card.parse(m.group(2));
+
+            map.put(position, new HoleCards(first, second));
+        }
+        return map;
     }
 
     private Map<Position, Long> resolveBlinds(String hand) {
